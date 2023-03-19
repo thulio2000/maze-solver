@@ -26,11 +26,13 @@ def maze_solver():
 
 
 def escape():
+    """Function is called recursively to find a path from start to finishing points of the maze.
+      """
     current_cell = rat_path[len(rat_path) - 1]
-
+    """Starts by setting the variable current_cell to rat_path, a list containing the cells visited so far"""
     if current_cell == finish:
         return
-
+    """If current_cell is the finish line the function returns and solution is stored in rat_path """
     if maze[current_cell[0] + 1][current_cell[1]] == 'c':
         maze[current_cell[0] + 1][current_cell[1]] = 'p'
         rat_path.append([current_cell[0] + 1, current_cell[1]])
@@ -51,13 +53,15 @@ def escape():
         rat_path.append([current_cell[0], current_cell[1] - 1])
         escape()
 
-    # if we get here if means we made a wrong decision, so we must backtrack
+    """ If we get here if means we made a wrong decision, so we must backtrack. The function continues this process
+    of recursively moving forward and backtracking until it finds a path to the finish cell or there is no path.
+    """
 
     current_cell = rat_path[len(rat_path) - 1]
     if current_cell != finish:
         cell_to_remove = rat_path[len(rat_path) - 1]
         rat_path.remove(cell_to_remove)
-        maze[cell_to_remove[0][cell_to_remove[1]]] = 'c'
+        maze[cell_to_remove[0]][cell_to_remove[1]] = 'c'
 
 
 if __name__ == '__main__':
